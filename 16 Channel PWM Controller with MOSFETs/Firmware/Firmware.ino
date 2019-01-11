@@ -54,7 +54,7 @@ const uint16_t pwmtable[] PROGMEM =
 uint16_t dmx_addr = 0;
 
 // Maping "Channel of PWM Chip" => "Output Channel"
-uint8_t MAPPING_CH_PWM[] = {13, 2, 14, 1, 15, 0, 10, 5, 11, 4, 12, 3, 9, 7, 8, 6};
+uint8_t MAPPING_CH_PWM[] = {0, 15, 1, 14, 2, 13, 3, 12, 4, 11, 5, 10, 6, 8, 7, 9};
 
 // PWM output chip
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
