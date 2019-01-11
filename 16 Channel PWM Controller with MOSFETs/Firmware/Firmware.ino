@@ -79,35 +79,13 @@ void setup () {
   pinMode(DMX_ADDR_7,       INPUT_PULLUP);
   pinMode(DMX_ADDR_8,       INPUT_PULLUP);
 
+  digitalWrite(CONTROLPIN_RX_TX, LOW);
   digitalWrite(STATUS_LED, HIGH);
 }
 
 
-void loop() {
-
-  // Test-Code: erzeugt eine Helligkeitswelle über alle Kanäle hinweg
-  uint8_t val = 0;
-  while(true)
-  {   
-    for(int i = 0; i < 16; i++)
-    {
-      uint8_t dmx_val = val + 16;
-      uint16_t output_val = 0;
-
-      if(USE_LOG)
-      {
-        output_val = pgm_read_word_near(pwmtable + dmx_val);
-      }
-      else
-      {
-        output_val = (uint16_t)dmx_val * 16;
-      }
-      
-      pwm.setPWM(MAPPING_CH_PWM[i], 0, output_val);
-    }
-    val++;
-  }
-  
+void loop() 
+{
   // Calculate how long no data backet was received
   unsigned long lastPacket = DMXSerial.noDataSince();
   
@@ -116,7 +94,7 @@ void loop() {
     
     for(int i = 0; i < 16; i++)
     {
-      uint8_t dmx_val = DMXSerial.read(dmx_addr + 1);
+      uint8_t dmx_val = DMXSerial.read(dmx_addr + 1 + i);
       uint16_t output_val = 0;
 
       if(USE_LOG)
